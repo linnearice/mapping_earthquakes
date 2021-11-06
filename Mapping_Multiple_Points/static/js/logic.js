@@ -5,13 +5,21 @@ console.log("working");
 let cityData = cities;
 
 //Create the map object with a center and zoom level using setView method.
-let map = L.map('mapid').setView([cityData.location], 14);
+let map = L.map('mapid').setView([40.7, -94.5], 4);
 
 //  Add a marker to the map for Los Angeles, California.
 // Loop through the cities array and create one marker for each city.
 cityData.forEach(function(city) {
   console.log(city)
-  L.marker(city.location).addTo(map);
+  L.circleMarker(city.location,{
+    radius: (city.population-200000)/100000,
+    color: 'orange',
+    lineweight: 4,
+    fillColor: 'orange'
+
+  })
+  .bindPopup("<h2>" + city.city + ", " + city.state + "</h2> <hr> <h3>Population " + city.population.toLocaleString() + "</h3>")
+  .addTo(map);
 });
 
 // We create the tile layer that will be the background of our map.
